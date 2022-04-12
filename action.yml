@@ -36,7 +36,7 @@ inputs:
     default: ''
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/ambientlight/amplify-cli-action/amplify-cli-action:0.3.0'
+  image: 'Dockerfile'
   args:
     - ${{ inputs.project_dir }}
     - ${{ inputs.source_dir }}
