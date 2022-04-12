@@ -32,12 +32,6 @@ if [ -n "$1" ] ; then
   cd "$1"
 fi
 
-# Install amplify globally,
-if [ -z $(which amplify) ] ; then
-  echo "Installing amplify globally"
-  npm install -g @aws-amplify/cli@${8}
-fi
-
 which amplify
 echo "amplify version $(amplify --version)"
 

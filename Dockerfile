@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:14
 
 LABEL "com.github.actions.name"="GitHub action for deploying AWS Amplify project"
 LABEL "com.github.actions.description"="This action builds and deploys your AWS Amplify project"
@@ -7,6 +7,8 @@ LABEL "com.github.actions.color"="orange"
 
 LABEL "repository"="https://github.com/ixxiyourworld/amplify-cli-action"
 LABEL "homepage"="https://github.com/ixxiyourworld/amplify-cli-action.git"
+
+RUN yarn global add @aws-amplify/cli@${8}
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
