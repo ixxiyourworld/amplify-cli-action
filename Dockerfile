@@ -8,7 +8,7 @@ LABEL "com.github.actions.color"="orange"
 LABEL "repository"="https://github.com/ixxiyourworld/amplify-cli-action"
 LABEL "homepage"="https://github.com/ixxiyourworld/amplify-cli-action.git"
 
-RUN npm install --global --unsafe-perm @aws-amplify/cli@latest
+RUN chmod 777 yarn global add @aws-amplify/cli@latest
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
