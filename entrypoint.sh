@@ -22,23 +22,20 @@ if [ -z "$6" ] ; then
   exit 1
 fi
 
+if [ -z "$8" ] ; then
+  echo "You must provide amplify_cli_version input parameter in order to deploy"
+  exit 1
+fi
+
 # cd to project_dir if custom subfolder is specified
 if [ -n "$1" ] ; then
   cd "$1"
 fi
 
-# if amplify if available at path and custom amplify version is unspecified, do nothing,
-# otherwise install globally latest npm version
-# FIXME: weird: using local dep amplify-cli bugs with awscloudformation provider: with using provider underfined
-if [ -z $(which amplify) ] || [ -n "$8" ] ; then
-  echo "Installing amplify globaly"
-  npm install -g @aws-amplify/cli@${8}
-# elif [ ! -f ./node_modules/.bin/amplify ] ; then
-else
-  echo "using amplify available at PATH"
-# else
-#   echo "using local project dependency amplify"
-#   PATH="$PATH:$(pwd)/node_modules/.bin"
+# Install amplify globally,
+if [ -z $(which amplify) ] ; then
+  echo "Installing amplify globally"
+  yarn global add @aws-amplify/cli@${8}
 fi
 
 which amplify
