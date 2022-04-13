@@ -8,7 +8,5 @@ LABEL "com.github.actions.color"="orange"
 LABEL "repository"="https://github.com/ixxiyourworld/amplify-cli-action"
 LABEL "homepage"="https://github.com/ixxiyourworld/amplify-cli-action.git"
 
-RUN wget "http://stedolan.github.io/jq/download/linux64/jq" && chmod 755 jq
-
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
