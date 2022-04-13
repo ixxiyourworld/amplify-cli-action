@@ -54,18 +54,35 @@ echo "amplify version $(amplify --version)"
 
 case $5 in
   import)
-    echo "# Start initializing Amplify environment: ${ENV}"
-    sh -c "STACKINFO=$(cat './amplify/team-provider-info.json' | jq '.$6')"
+    AWSCLOUDFORMATIONCONFIG="{\
+          \"Region\": \"eu-west-1\",
+          \"DeploymentBucketName\": \"amplify-website-luc-115444-deployment\",
+          \"UnauthRoleName\": \"amplify-website-luc-115444-unauthRole\",
+          \"StackName\": \"amplify-website-luc-115444\",
+          \"StackId\": \"arn:aws:cloudformation:eu-west-1:057200450933:stack/amplify-website-luc-115444/c7aa6530-9e99-11eb-bc1e-068dc9a8d6e1\",
+          \"AuthRoleName\": \"amplify-website-luc-115444-authRole\",
+          \"UnauthRoleArn\": \"arn:aws:iam::057200450933:role/amplify-website-luc-115444-unauthRole\",
+          \"AuthRoleArn\": \"arn:aws:iam::057200450933:role/amplify-website-luc-115444-authRole\",
+          \"AmplifyAppId\": \"d21nzwkm439ia\",
+          \"APIGatewayAuthURL\": \"https://s3.amazonaws.com/amplify-website-luc-115444-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json\"
+          }"
+    PROVIDER_CONFIG="{\
+      \"awscloudformation\":$AWSCLOUDFORMATIONCONFIG\
+    }"
 
-    echo $STACKINFO
+    AWS_CONFIG="{\
+     \"configLevel\":\"project\",\
+     \"useProfile\":false,\
+     \"accessKeyId\":\"$AWS_ACCESS_KEY_ID\",\
+     \"secretAccessKey\":\"$AWS_SECRET_ACCESS_KEY\",\
+     \"region\":\"$AWS_REGION\"\
+   }"
 
-#    echo "# Importing Amplify environment: ${ENV} (amplify env import)"
-#    amplify env import --name ${ENV} --config "${STACKINFO}" --awsInfo ${AWSCONFIG} --yes;
-#    echo "# Initializing existing Amplify environment: ${ENV} (amplify init)"
-#    [[ -z ${CATEGORIES} ]] && amplify init --amplify ${AMPLIFY} --providers ${PROVIDERS} --codegen ${CODEGEN} --yes || amplify init --amplify ${AMPLIFY} --providers ${PROVIDERS} --codegen ${CODEGEN} --categories ${CATEGORIES} --yes
-#    echo "# Environment ${ENV} details:"
-#    amplify env get --name ${ENV}
-#    echo "# Done initializing Amplify environment: ${ENV}"
+    amplify env import \
+    --name "$6" \
+    --config $PROVIDER_CONFIG \
+    --awsInfo $AWS_CONFIG \
+    --yes
     ;;
 
   push)
