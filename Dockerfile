@@ -10,4 +10,3 @@ LABEL "homepage"="https://github.com/ixxiyourworld/amplify-cli-action.git"
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-

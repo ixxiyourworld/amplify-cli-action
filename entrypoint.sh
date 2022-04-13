@@ -1,5 +1,16 @@
 #!/bin/bash -l
 
+echo "project_dir:$1
+source_dir:$2
+distribution_dir:$3
+build_command:$4
+amplify_command:$5
+env-name:$6
+delete_lock:$7
+amplify_cli_version:$8
+amplify_arguments:$9
+"
+
 set -e
 
 if [ -z "$AWS_ACCESS_KEY_ID" ] && [ -z "$AWS_SECRET_ACCESS_KEY" ] ; then
@@ -42,7 +53,6 @@ which amplify
 echo "amplify version $(amplify --version)"
 
 case $5 in
-
   push)
     amplify push $9 --yes
     ;;
@@ -56,14 +66,20 @@ case $5 in
     ;;
 
   configure)
-    aws_config_file_path="$(pwd)/aws_config_file_path.json"
-    echo '{"accessKeyId":"'$AWS_ACCESS_KEY_ID'","secretAccessKey":"'$AWS_SECRET_ACCESS_KEY'","region":"'$AWS_REGION'"}' > $aws_config_file_path
-    echo '{"projectPath": "'"$(pwd)"'","defaultEditor":"code","envName":"'$6'"}' > ./amplify/.config/local-env-info.json
-    echo '{"'$6'":{"configLevel":"project","useProfile":false,"awsConfigFilePath":"'$aws_config_file_path'"}}' > ./amplify/.config/local-aws-info.json
+    echo "Setting up environment"
+
+    if [[ ! -e "./amplify/.config/" ]]; then
+        mkdir -p ./amplify/.config/
+    elif [[ ! -d "./amplify/.config/" ]]; then
+        echo "'./amplify/.config/' already exists but is not a directory" 1>&2
+    fi
+
+    aws_credentials_path="$(pwd)credentials.json"
+    sh -c "echo '{\"accessKeyId\":\"'$AWS_ACCESS_KEY_ID'\",\"secretAccessKey\":\"'$AWS_SECRET_ACCESS_KEY'\",\"region\":\"'$AWS_REGION'\"}' > $aws_credentials_path"
+    sh -c "echo '{\"projectPath\": \"'\"$(pwd)\"'\",\"defaultEditor\":\"code\",\"envName\":\"'$6'\"}' > ./amplify/.config/local-env-info.json"
+    sh -c "echo '{\"'$6'\":{\"configLevel\":\"project\",\"useProfile\":false,\"awsConfigFilePath\":\"'$aws_credentials_path'\"}}' > ./amplify/.config/local-aws-info.json"
 
 
-
-    # if environment doesn't exist fail explicitly
     if [ -z "$(amplify env get --name $6 | grep 'No environment found')" ] ; then
       echo "found existing environment $6"
       amplify env pull --yes $9
