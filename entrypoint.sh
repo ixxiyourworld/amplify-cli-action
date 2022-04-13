@@ -35,7 +35,7 @@ fi
 # Install amplify globally,
 if [ -z $(which amplify) ] || [ -n "$8" ] ; then
   echo "Installing amplify globally"
-  yarn global add @aws-amplify/cli@${8}
+  npm install -g @aws-amplify/cli@${8}
 fi
 
 which amplify
