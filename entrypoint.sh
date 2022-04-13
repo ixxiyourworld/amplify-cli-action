@@ -55,13 +55,11 @@ echo "amplify version $(amplify --version)"
 case $5 in
   import)
     echo "# Start initializing Amplify environment: ${ENV}"
-    ls -l .
-    echo "---"
-    ls -l /
-    echo "---"
-    ls -l /amplify
-
-    echo "STACKINFO="`cat $(pwd)team-provider-info.json | json select "$6"`
+    ls -l ./amplify
+    echo "-----"
+    echo $(pwd)
+echo "-----"
+    echo "STACKINFO="`cat ./amplify/team-provider-info.json | json select "$6"`
 
     echo $STACKINFO
 
