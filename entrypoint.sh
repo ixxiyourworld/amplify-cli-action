@@ -59,7 +59,7 @@ case $5 in
     echo "-----"
     echo $(pwd)
 echo "-----"
-    echo "STACKINFO="`cat ./amplify/team-provider-info.json | json select "$6"`
+    STACKINFO=`cat ./amplify/team-provider-info.json | jq ".$6"`
 
     echo $STACKINFO
 
