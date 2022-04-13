@@ -55,28 +55,28 @@ echo "amplify version $(amplify --version)"
 case $5 in
   import)
     AWSCLOUDFORMATIONCONFIG="{\
-          \"Region\": \"eu-west-1\",\
-          \"DeploymentBucketName\": \"amplify-website-luc-115444-deployment\",\
-          \"UnauthRoleName\": \"amplify-website-luc-115444-unauthRole\",\
-          \"StackName\": \"amplify-website-luc-115444\",\
-          \"StackId\": \"arn:aws:cloudformation:eu-west-1:057200450933:stack/amplify-website-luc-115444/c7aa6530-9e99-11eb-bc1e-068dc9a8d6e1\",\
-          \"AuthRoleName\": \"amplify-website-luc-115444-authRole\",\
-          \"UnauthRoleArn\": \"arn:aws:iam::057200450933:role/amplify-website-luc-115444-unauthRole\",\
-          \"AuthRoleArn\": \"arn:aws:iam::057200450933:role/amplify-website-luc-115444-authRole\",\
-          \"AmplifyAppId\": \"d21nzwkm439ia\",\
-          \"APIGatewayAuthURL\": \"https://s3.amazonaws.com/amplify-website-luc-115444-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json\"\
-          }"
+    \"Region\":\"eu-west-1\",\
+    \"DeploymentBucketName\":\"amplify-website-luc-115444-deployment\",\
+    \"UnauthRoleName\":\"amplify-website-luc-115444-unauthRole\",\
+    \"StackName\":\"amplify-website-luc-115444\",\
+    \"StackId\":\"arn:aws:cloudformation:eu-west-1:057200450933:stack/amplify-website-luc-115444/c7aa6530-9e99-11eb-bc1e-068dc9a8d6e1\",\
+    \"AuthRoleName\":\"amplify-website-luc-115444-authRole\",\
+    \"UnauthRoleArn\":\"arn:aws:iam::057200450933:role/amplify-website-luc-115444-unauthRole\",\
+    \"AuthRoleArn\":\"arn:aws:iam::057200450933:role/amplify-website-luc-115444-authRole\",\
+    \"AmplifyAppId\":\"d21nzwkm439ia\",\
+    \"APIGatewayAuthURL\":\"https://s3.amazonaws.com/amplify-website-luc-115444-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json\"\
+    }"
     PROVIDER_CONFIG="{\
-      \"awscloudformation\":$AWSCLOUDFORMATIONCONFIG\
+    \"awscloudformation\":\"$AWSCLOUDFORMATIONCONFIG\"\
     }"
 
     AWS_CONFIG="{\
-     \"configLevel\":\"project\",\
-     \"useProfile\":false,\
-     \"accessKeyId\":\"$AWS_ACCESS_KEY_ID\",\
-     \"secretAccessKey\":\"$AWS_SECRET_ACCESS_KEY\",\
-     \"region\":\"$AWS_REGION\"\
-   }"
+    \"configLevel\":\"project\",\
+    \"useProfile\":false,\
+    \"accessKeyId\":\"$AWS_ACCESS_KEY_ID\",\
+    \"secretAccessKey\":\"$AWS_SECRET_ACCESS_KEY\",\
+    \"region\":\"$AWS_REGION\"\
+    }"
 
     amplify env import \
     --name "$6" \
