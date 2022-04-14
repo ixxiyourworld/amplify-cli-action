@@ -43,12 +43,6 @@ if [ -n "$1" ] ; then
   cd "$1"
 fi
 
-# Install amplify globally,
-if [ -z $(which amplify) ] || [ -n "$8" ] ; then
-  echo "Installing amplify globally"
-  npm install -g @aws-amplify/cli@${8}
-fi
-
 which amplify
 echo "amplify version $(amplify --version)"
 
@@ -67,7 +61,7 @@ case $5 in
     \"APIGatewayAuthURL\":\"https://s3.amazonaws.com/amplify-website-luc-115444-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json\"\
     }"
     PROVIDER_CONFIG="{\
-    \"awscloudformation\":\"$AWSCLOUDFORMATIONCONFIG\"\
+    \"awscloudformation\": $AWSCLOUDFORMATIONCONFIG \
     }"
 
     AWS_CONFIG="{\
@@ -78,10 +72,12 @@ case $5 in
     \"region\":\"$AWS_REGION\"\
     }"
 
+    echo $PROVIDER_CONFIG
+
     amplify env import \
     --name "$6" \
-    --config $PROVIDER_CONFIG \
-    --awsInfo $AWS_CONFIG \
+    --config "$PROVIDER_CONFIG" \
+    --awsInfo "$AWS_CONFIG" \
     --yes
     ;;
 
