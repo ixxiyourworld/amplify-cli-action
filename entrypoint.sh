@@ -43,6 +43,12 @@ if [ -n "$1" ] ; then
   cd "$1"
 fi
 
+echo '----'
+ls -l /
+echo '----'
+ls -l /amplify
+echo '----'
+
 which amplify
 echo "amplify version $(amplify --version)"
 
